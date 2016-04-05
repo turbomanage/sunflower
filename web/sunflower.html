@@ -16,16 +16,20 @@
     <p>A canvas 2D demo.</p>
 
     <div id="container">
-      <canvas id="canvas" width="300" height="300" class="center"></canvas>
+      <canvas id="canvas" width="500" height="500" class="center"></canvas>
       <table class="center">
       <form class="center">
         <tr>
-          <td><input id="slider" type="range" max="1000" value="500"/></td>
+          <td><input id="slider" type="range" max="3000" value="500"/></td>
           <td nowrap id="notes"></td>
         </tr>
         <tr>
-          <td><input id="phi_slider" type="range" min="16130" max="16230" value="16180" /></td>
+          <td><input id="phi_slider" type="range" min="10000" max="20000" value="16180" /></td>
           <td nowrap id="theta"></td>
+        </tr>
+        <tr>
+          <td><input id="start" type="button" value="Start" /></td>
+          <td nowrap>&nbsp;</td>
         </tr>
       </form>
       </table>
