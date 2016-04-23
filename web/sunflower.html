@@ -17,34 +17,34 @@
 
     <div id="container">
       <canvas id="canvas" width="500" height="500" class="center"></canvas>
-        <div>
-      <table class="center">
-      <form class="center">
-          <tr>
-              <td nowrap colspan="2">
-                  <input id="x1" type="button" value="1x" />
-                  <input id="x13" type="button" value="13x" />
-                  <input id="x144" type="button" value="144x" />
-              </td>
-          </tr>
-          <tr>
-              <td nowrap colspan="2">
-                  <input id="clearButton" type="button" value="Clear"/>
-              </td>
-          </tr>
-          <tr>
-            <td><input id="slider" type="range" max="3000" value="500"/></td>
-            <td nowrap id="notes"></td>
-        </tr>
-          <tr>
-            <td><input id="phi_slider" type="range" min="10000" max="20000" value="16180" /></td>
-            <td nowrap id="theta"></td>
-        </tr>
-      </form>
-      </table>
-        </div>
-      <br/>
-      <img src="math.png" width="350px" height="42px" class="center">
+    </div>
+      <div class="center">
+              <input id="x1" type="button" value="1x" />
+              <input id="x5" type="button" value="5x" />
+              <input id="x10" type="button" value="10x" />
+              <input id="x15" type="button" value="15x" />
+              <input id="x20" type="button" value="20x" />
+              <input id="x30" type="button" value="30" />
+              <input id="x50" type="button" value="50x" />
+              <input id="x100" type="button" value="100x" />
+              <input id="x200" type="button" value="200x" />
+      </div>
+      <div class="center">
+        <input id="clearButton" type="button" value="Clear"/>
+        <input id="resetButton" type="button" value="Reset"/>
+      </div>
+      <div class="center">
+        <input id="slider" type="range" max="3000" value="500"/>
+        <input id="notes" type="text" size="5"/>
+          <label for="notes">seeds</label>
+      </div>
+      <div class="center">
+        <input id="phi_slider" type="range" min="10000" max="20000" value="16180" />
+        <input id="theta" type="text" size="5"/>
+          <label for="theta">= phi</label>
+      </div>
+    <div id="math" class="center">
+      <img src="math.png" class="center">
     </div>
 
     <footer>

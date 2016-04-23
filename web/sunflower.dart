@@ -20,11 +20,18 @@ const maxDelay = const Duration(milliseconds:500);
 final InputElement slider = querySelector("#slider");
 final InputElement phiSlider = querySelector("#phi_slider");
 final ButtonElement x1Button = querySelector("#x1");
-final ButtonElement x13Button = querySelector("#x13");
-final ButtonElement x144Button = querySelector("#x144");
+final ButtonElement x5Button = querySelector("#x5");
+final ButtonElement x10Button = querySelector("#x10");
+final ButtonElement x15Button = querySelector("#x15");
+final ButtonElement x20Button = querySelector("#x20");
+final ButtonElement x30Button = querySelector("#x30");
+final ButtonElement x50Button = querySelector("#x50");
+final ButtonElement x100Button = querySelector("#x100");
+final ButtonElement x200Button = querySelector("#x200");
 final ButtonElement clearButton = querySelector("#clearButton");
-final Element notes = querySelector("#notes");
-final Element theta = querySelector("#theta");
+final TextInputElement notes = querySelector("#notes");
+final TextInputElement theta = querySelector("#theta");
+final ButtonElement resetButton = querySelector("#resetButton");
 final num PHI = (sqrt(5) + 1) / 2;
 int seeds = 0;
 int n = 0;
@@ -36,18 +43,49 @@ final CanvasRenderingContext2D context =
   (querySelector("#canvas") as CanvasElement).context2D;
 
 void main() {
-  slider.onChange.listen((e) => draw());
-  slider.onInput.listen((e) => draw());
-  slider.onKeyDown.listen((e) => draw());
-  phiSlider.onChange.listen((e) => draw());
-  phiSlider.onInput.listen((e) => draw());
-  phiSlider.onKeyDown.listen((e) => draw());
+  slider.onChange.listen((e) => onSlide());
+  slider.onInput.listen((e) => onSlide());
+  slider.onKeyDown.listen((e) => onSlide());
+  phiSlider.onChange.listen((e) => onSlide());
+  phiSlider.onInput.listen((e) => onSlide());
+  phiSlider.onKeyDown.listen((e) => onSlide());
   x1Button.onClick.listen((e) => grow(1));
-  x13Button.onClick.listen((e) => grow(13));
-  x144Button.onClick.listen((e) => grow(144));
+  x5Button.onClick.listen((e) => grow(5));
+  x10Button.onClick.listen((e) => grow(10));
+  x15Button.onClick.listen((e) => grow(15));
+  x20Button.onClick.listen((e) => grow(20));
+  x30Button.onClick.listen((e) => grow(30));
+  x50Button.onClick.listen((e) => grow(50));
+  x100Button.onClick.listen((e) => grow(100));
+  x200Button.onClick.listen((e) => grow(200));
   clearButton.onClick.listen((e) => clear());
-//  autoBox.onChange.listen((e) => setMode());
-//  draw();
+  notes.onChange.listen((e) => onInput());
+  theta.onChange.listen((e) => onInput());
+  resetButton.onClick.listen((e) => reset());
+  // init
+  onSlide();
+}
+
+void onInput() {
+  seeds = int.parse(notes.value);
+  phi = double.parse(theta.value);
+  slider.value = notes.value;
+  phiSlider.value = "${phi * 10000}";
+  draw();
+}
+
+void onSlide() {
+  seeds = int.parse(slider.value);
+  phi = int.parse(phiSlider.value) / 10000;
+  notes.value = "${seeds}";
+  theta.value = "${phi}";
+  draw();
+}
+
+void reset() {
+  notes.value = "${500}";
+  theta.value = "${PHI}";
+  onInput();
 }
 
 void clear() {
@@ -59,29 +97,21 @@ void clear() {
 
 /// Draw the complete figure for the current number of seeds.
 void draw() {
-  seeds = int.parse(slider.value);
-  phi = int.parse(phiSlider.value) / 10000;
   context.clearRect(0, 0, MAX_D, MAX_D);
   for (var i = 0; i < seeds; i++) {
     drawSeed(i);
   }
   drawEnclosingArc();
-  notes.text = "${seeds} seeds";
-  theta.text = "${phi} = phi";
 }
 
 void grow(int speed) {
   if (timer != null) {
     timer.cancel();
   }
-  seeds = int.parse(slider.value);
-  phi = int.parse(phiSlider.value) / 10000;
   context.clearRect(0, 0, MAX_D, MAX_D);
   n = 1;
   timer = new Timer.periodic(maxDelay~/speed, (Timer t) => growSeed(t));
   drawEnclosingArc();
-  notes.text = "${seeds} seeds";
-  theta.text = "${phi} = phi";
 }
 
 void drawSeed(int i) {
@@ -118,7 +148,8 @@ void drawEnclosingArc() {
   context..beginPath()
          ..lineWidth = 1
          ..strokeStyle = 'blue'
-         ..arc(centerX, centerY, sqrt(seeds) * SCALE_FACTOR, 0, TAU, false)
+         ..arc(centerX, centerY, sqrt(seeds) * SCALE_FACTOR + SEED_RADIUS * 2, 0, TAU,
+  false)
          ..closePath()
          ..stroke();
 }
