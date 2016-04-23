@@ -17,22 +17,35 @@
 
     <div id="container">
       <canvas id="canvas" width="500" height="500" class="center"></canvas>
+        <div>
       <table class="center">
       <form class="center">
-        <tr>
-          <td><input id="slider" type="range" max="3000" value="500"/></td>
-          <td nowrap id="notes"></td>
+          <tr>
+              <td nowrap colspan="2">
+                  <input id="x1" type="button" value="1x" />
+                  <input id="x2" type="button" value="2x" />
+                  <input id="x3" type="button" value="3x" />
+                  <input id="x5" type="button" value="5x" />
+                  <input id="x8" type="button" value="8x" />
+                  <input id="x13" type="button" value="13x" />
+              </td>
+          </tr>
+          <tr>
+              <td nowrap colspan="2">
+                  <input id="clearButton" type="button" value="Clear"/>
+              </td>
+          </tr>
+          <tr>
+            <td><input id="slider" type="range" max="3000" value="500"/></td>
+            <td nowrap id="notes"></td>
         </tr>
-        <tr>
-          <td><input id="phi_slider" type="range" min="10000" max="20000" value="16180" /></td>
-          <td nowrap id="theta"></td>
-        </tr>
-        <tr>
-          <td><input id="start" type="button" value="Start" /></td>
-          <td nowrap>&nbsp;</td>
+          <tr>
+            <td><input id="phi_slider" type="range" min="10000" max="20000" value="16180" /></td>
+            <td nowrap id="theta"></td>
         </tr>
       </form>
       </table>
+        </div>
       <br/>
       <img src="math.png" width="350px" height="42px" class="center">
     </div>
