@@ -15,21 +15,13 @@ const num TAU = PI * 2;
 const int MAX_D = 500;
 const num centerX = MAX_D / 2;
 const num centerY = centerX;
-Duration x1Delay = const Duration(milliseconds:21);
-Duration x2Delay = const Duration(milliseconds:13);
-Duration x3Delay = const Duration(milliseconds:8);
-Duration x5Delay = const Duration(milliseconds:5);
-Duration x8Delay = const Duration(milliseconds:3);
-Duration x13Delay = const Duration(milliseconds:2);
+const maxDelay = const Duration(milliseconds:500);
 
 final InputElement slider = querySelector("#slider");
 final InputElement phiSlider = querySelector("#phi_slider");
 final ButtonElement x1Button = querySelector("#x1");
-final ButtonElement x2Button = querySelector("#x2");
-final ButtonElement x3Button = querySelector("#x3");
-final ButtonElement x5Button = querySelector("#x5");
-final ButtonElement x8Button = querySelector("#x8");
 final ButtonElement x13Button = querySelector("#x13");
+final ButtonElement x144Button = querySelector("#x144");
 final ButtonElement clearButton = querySelector("#clearButton");
 final Element notes = querySelector("#notes");
 final Element theta = querySelector("#theta");
@@ -50,12 +42,9 @@ void main() {
   phiSlider.onChange.listen((e) => draw());
   phiSlider.onInput.listen((e) => draw());
   phiSlider.onKeyDown.listen((e) => draw());
-  x1Button.onClick.listen((e) => grow(x1Delay));
-  x2Button.onClick.listen((e) => grow(x2Delay));
-  x3Button.onClick.listen((e) => grow(x3Delay));
-  x5Button.onClick.listen((e) => grow(x5Delay));
-  x8Button.onClick.listen((e) => grow(x8Delay));
-  x13Button.onClick.listen((e) => grow(x13Delay));
+  x1Button.onClick.listen((e) => grow(1));
+  x13Button.onClick.listen((e) => grow(13));
+  x144Button.onClick.listen((e) => grow(144));
   clearButton.onClick.listen((e) => clear());
 //  autoBox.onChange.listen((e) => setMode());
 //  draw();
@@ -81,7 +70,7 @@ void draw() {
   theta.text = "${phi} = phi";
 }
 
-void grow(Duration delay) {
+void grow(int speed) {
   if (timer != null) {
     timer.cancel();
   }
@@ -89,7 +78,7 @@ void grow(Duration delay) {
   phi = int.parse(phiSlider.value) / 10000;
   context.clearRect(0, 0, MAX_D, MAX_D);
   n = 1;
-  timer = new Timer.periodic(delay, (Timer t) => growSeed(t));
+  timer = new Timer.periodic(maxDelay~/speed, (Timer t) => growSeed(t));
   drawEnclosingArc();
   notes.text = "${seeds} seeds";
   theta.text = "${phi} = phi";
